@@ -12,6 +12,9 @@ import { LoginPage } from '../pages/login/login';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { InventoryServiceProvider } from '../providers/inventory-service/inventory-service';
+import { AuthenticateUserProvider } from '../providers/authenticate-user/authenticate-user';
+
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { InventoryServiceProvider } from '../providers/inventory-service/invento
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -39,7 +43,8 @@ import { InventoryServiceProvider } from '../providers/inventory-service/invento
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    InventoryServiceProvider
+    InventoryServiceProvider,
+    AuthenticateUserProvider
   ]
 })
 export class AppModule {}
