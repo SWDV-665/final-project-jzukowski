@@ -28,6 +28,11 @@ var Inventory = mongoose.model('Inventory', {
     quantity: Number
 });
 
+var User = mongoose.model('User', {
+    username: String,
+    password: String
+});
+
 
 // Get all grocery items
 app.get('/api/inventories', function (req, res) {
@@ -117,6 +122,51 @@ app.delete('/api/inventories/:id', function (req, res) {
                 }
             });
         }
+    });
+});
+
+app.post('/api/users', function (req, res) {
+    console.log("fetching users...");
+    User.find({username: req.body.username, password: req.body.password}, function (err, users) {
+        if (err) {
+            res.send(err);
+        }
+
+        res.json(users);
+    });
+});
+
+app.get('/api/users/:id', function (req, res) {
+    console.log("fetching user...");
+
+    User.find({_id: req.params.id}, function (err, users) {
+        if (err) {
+            res.send(err);
+        }
+
+        res.json(users);
+    });
+});
+
+app.post('/api/addUser', function (req, res) {
+    console.log("Creating user...");
+    console.log(req.body);
+
+    User.create({
+        username: req.body.username,
+        password: req.body.password,
+        done: false
+    }, function (err, users) {
+        if (err) {
+            res.send(err);
+        }
+
+        // create and return all the groceries
+        User.find(function (err, users) {
+            if (err)
+                res.send(err);
+            res.json(users);
+        });
     });
 });
 
