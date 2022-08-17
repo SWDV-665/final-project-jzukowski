@@ -5,6 +5,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { InputDialogServiceProvider } from '../../providers/input-dialog-service/input-dialog-service';
 import { InventoryServiceProvider } from '../../providers/inventory-service/inventory-service';
 import { Storage } from '@ionic/storage';
+import { InventoryPage } from '../inventory/inventory';
 
 @Component({
   selector: 'page-home',
@@ -76,5 +77,9 @@ export class HomePage {
 
   addItem() {
     this.inputDialogService.showPrompt();
+  }
+
+  inventorySelect(inventoryId, item) {
+    this.navCtrl.push(InventoryPage, {id: inventoryId, item: item});
   }
 }

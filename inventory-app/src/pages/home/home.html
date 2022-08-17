@@ -10,10 +10,10 @@
   </h3>
   <ion-list>
     <ion-item-sliding *ngFor="let item of items; let i = index">
-      <ion-item>
+      <button ion-item (click)="inventorySelect(item._id, item)">
         <h2>{{item.name}}</h2>
         <p>{{item.quantity}}</p>
-      </ion-item>
+      </button>
       <ion-item-options>
         <button ion-button (click)="editItem(item, item._id)" color="primary" icon-start>
           <ion-icon name="create"></ion-icon>
