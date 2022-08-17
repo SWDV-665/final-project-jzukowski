@@ -13,8 +13,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { InventoryServiceProvider } from '../providers/inventory-service/inventory-service';
 import { AuthenticateUserProvider } from '../providers/authenticate-user/authenticate-user';
-
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
+import { InputDialogServiceProvider } from '../providers/input-dialog-service/input-dialog-service';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -44,7 +47,9 @@ import { HttpClientModule } from '@angular/common/http';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     InventoryServiceProvider,
-    AuthenticateUserProvider
+    AuthenticateUserProvider,
+    SocialSharing,
+    InputDialogServiceProvider
   ]
 })
 export class AppModule {}

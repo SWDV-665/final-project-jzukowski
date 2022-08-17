@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import {AuthenticateUserProvider} from '../../providers/authenticate-user/authenticate-user';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the LoginPage page.
@@ -20,10 +21,12 @@ export class LoginPage {
   username = "";
   password = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authProvider: AuthenticateUserProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authProvider: AuthenticateUserProvider, private storage: Storage) {
     authProvider.dataChanged$.subscribe((dataChanged: boolean) => {
       if (authProvider.users.length > 0) {
-        this.navCtrl.setRoot(TabsPage);
+        this.storage.set("userId", authProvider.users[0]._id).then(() => {
+          this.navCtrl.setRoot(TabsPage);
+        });
       }
       else {
         console.log('no user')

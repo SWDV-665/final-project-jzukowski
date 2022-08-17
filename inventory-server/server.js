@@ -24,8 +24,8 @@ app.use(function (req, res, next) {
 
 // Model
 var Inventory = mongoose.model('Inventory', {
-    item: String,
-    quantity: Number
+    name: String,
+    userId: String
 });
 
 var User = mongoose.model('User', {
@@ -54,12 +54,12 @@ app.get('/api/inventories', function (req, res) {
 app.get('/api/inventories/:id', function (req, res) {
     console.log("Listing single inventory item...");
 
-    Inventory.find({_id: req.params.id}, function (err, groceries) {
+    Inventory.find({userId: req.params.id}, function (err, inventories) {
         if (err) {
             res.send(err);
         }
 
-        res.json(groceries);
+        res.json(inventories);
     });
 });
 
@@ -70,8 +70,8 @@ app.post('/api/inventories', function (req, res) {
     console.log(req.body);
 
     Inventory.create({
-        item: req.body.item,
-        quantity: req.body.quantity,
+        name: req.body.name,
+        userId: req.body.userId,
         done: false
     }, function (err, inventory_items) {
         if (err) {

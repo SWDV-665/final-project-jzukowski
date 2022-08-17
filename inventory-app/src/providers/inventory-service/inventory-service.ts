@@ -25,9 +25,9 @@ export class InventoryServiceProvider {
     this.dataChanged$ = this.dataChangeSubject.asObservable();
   }
 
-  getInventories(): Observable<object[]> {
+  getInventories(userId): Observable<object[]> {
     //return this.items;
-    return this.http.get(this.baseURL + "/api/inventories").pipe(
+    return this.http.get(this.baseURL + "/api/inventories/" + userId).pipe(
       map(this.extractData),
       catchError(this.handleError)
     );
