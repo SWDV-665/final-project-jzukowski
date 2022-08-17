@@ -25,7 +25,6 @@ export class HomePage {
   ionViewDidLoad() {
     this.storage.get("userId").then((val) => {
       this.userId = val;
-      console.log("userId:",val);
       this.loadItems();
     });
     
