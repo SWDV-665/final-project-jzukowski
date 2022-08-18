@@ -33,6 +33,13 @@ var User = mongoose.model('User', {
     password: String
 });
 
+var InventoryItem = mongoose.model('InventoryItem',{
+    name: String,
+    quantity: Number,
+    code: String,
+    inventoryId: String
+});
+
 
 // Get all grocery items
 app.get('/api/inventories', function (req, res) {
@@ -123,6 +130,44 @@ app.delete('/api/inventories/:id', function (req, res) {
             });
         }
     });
+});
+
+app.get('/api/inventories/items/:id', function (req, res) {
+    console.log(`Listing items belonging to an inventory ${req.params.id}...`);
+
+    InventoryItem.find({inventoryId: req.params.id}, function (err, inventory_items) {
+        if (err) {
+            res.send(err);
+        }
+
+        res.json(inventory_items);
+    });
+});
+
+app.post('/api/inventories/items', function (req, res) {
+
+    console.log("Creating inventory item...");
+    console.log(req.body);
+
+    InventoryItem.create({
+        name: req.body.name,
+        quantity: req.body.quantity,
+        code: req.body.code,
+        inventoryId: req.body.inventoryId,
+        done: false
+    }, function (err, inventory_items) {
+        if (err) {
+            res.send(err);
+        }
+
+        // create and return all the groceries
+        InventoryItem.find(function (err, inventory_items) {
+            if (err)
+                res.send(err);
+            res.json(inventory_items);
+        });
+    });
+
 });
 
 app.post('/api/users', function (req, res) {

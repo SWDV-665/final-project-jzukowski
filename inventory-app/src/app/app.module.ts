@@ -20,6 +20,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { InputDialogServiceProvider } from '../providers/input-dialog-service/input-dialog-service';
 
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -55,6 +57,7 @@ import { InputDialogServiceProvider } from '../providers/input-dialog-service/in
     InventoryServiceProvider,
     AuthenticateUserProvider,
     SocialSharing,
+    BarcodeScanner,
     InputDialogServiceProvider
   ]
 })

@@ -33,9 +33,10 @@
     </ion-select>
   </ion-item>
 
-  <ion-item>
-    <ion-label>QRCode</ion-label>
-    <ion-input [(ngModel)]="code"></ion-input>
-  </ion-item>
+  <button ion-item (click)="captureQRCode()">
+    QRCode: {{code}}
+    <ion-icon name="qr-scanner"></ion-icon>
+  </button>
+  
 
 </ion-content>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 /**
  * Generated class for the ModalInventoryItemPage page.
@@ -20,7 +21,7 @@ export class ModalInventoryItemPage {
   quantity;
   code;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl:ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl:ViewController, private barcodeScanner: BarcodeScanner) {
     this.item = navParams.get("item");
     this.title = (this.item === undefined) ? "Add Inventory Item" : "Edit Inventory Item";
   }
@@ -38,7 +39,15 @@ export class ModalInventoryItemPage {
   }
 
   saveModal() {
-    this.viewCtrl.dismiss(); 
+    this.viewCtrl.dismiss({name: this.name, quantity: this.quantity, code: this.code}); 
+  }
+
+  captureQRCode() {
+    this.barcodeScanner.scan().then(barcodeData => {
+      this.code = barcodeData.text;
+     }).catch(err => {
+         console.log('Error', err);
+     });
   }
 
 }

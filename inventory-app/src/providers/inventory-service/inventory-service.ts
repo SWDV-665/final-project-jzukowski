@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 export class InventoryServiceProvider {
 
   items = [];
-  baseURL = "http://localhost:8080";
+  baseURL = "http://192.168.1.164:8080";//"http://localhost:8080";
 
   dataChanged$: Observable<boolean>;
   private dataChangeSubject: Subject<boolean>;
@@ -49,6 +49,21 @@ export class InventoryServiceProvider {
 
   editInventory(data, index) {
     this.http.put(this.baseURL + "/api/inventories/" + index, data).subscribe(res => {
+      this.items = <any>res;
+      this.dataChangeSubject.next(true);
+    });
+  }
+
+  getInventoryItems(inventoryId): Observable<object[]> {
+    //return this.items;
+    return this.http.get(this.baseURL + "/api/inventories/items/" + inventoryId).pipe(
+      map(this.extractData),
+      catchError(this.handleError)
+    );
+  }
+
+  addInventoryItem(data) {
+    this.http.post(this.baseURL + "/api/inventories/items", data).subscribe(res => {
       this.items = <any>res;
       this.dataChangeSubject.next(true);
     });
