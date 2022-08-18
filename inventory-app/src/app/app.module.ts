@@ -21,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { InputDialogServiceProvider } from '../providers/input-dialog-service/input-dialog-service';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { AvailableFilterPipe } from '../pipes/available-filter/available-filter';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
     TabsPage,
     LoginPage,
     InventoryPage,
-    ModalInventoryItemPage
+    ModalInventoryItemPage,
+    AvailableFilterPipe
   ],
   imports: [
     BrowserModule,

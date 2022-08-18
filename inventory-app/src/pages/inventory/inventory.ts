@@ -21,6 +21,9 @@ export class InventoryPage {
   item;
   items = [];
   errorMessage: string;
+  status = "available";
+  filterargs = {available: true};
+  ffilterargs = {available: false};
 
   constructor(public modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams, public inventoryService: InventoryServiceProvider) {
     this.id = navParams.get('id');

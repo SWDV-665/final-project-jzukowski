@@ -37,7 +37,8 @@ var InventoryItem = mongoose.model('InventoryItem',{
     name: String,
     quantity: Number,
     code: String,
-    inventoryId: String
+    inventoryId: String,
+    available: Boolean
 });
 
 
@@ -144,6 +145,18 @@ app.get('/api/inventories/items/:id', function (req, res) {
     });
 });
 
+app.get('/api/inventories/items/code/:id', function (req, res) {
+    console.log(`Listing item by QR Code ${req.params.id}...`);
+
+    InventoryItem.find({code: req.params.id}, function (err, inventory_items) {
+        if (err) {
+            res.send(err);
+        }
+
+        res.json(inventory_items);
+    });
+});
+
 app.post('/api/inventories/items', function (req, res) {
 
     console.log("Creating inventory item...");
@@ -154,6 +167,7 @@ app.post('/api/inventories/items', function (req, res) {
         quantity: req.body.quantity,
         code: req.body.code,
         inventoryId: req.body.inventoryId,
+        available: true,
         done: false
     }, function (err, inventory_items) {
         if (err) {
@@ -168,6 +182,25 @@ app.post('/api/inventories/items', function (req, res) {
         });
     });
 
+});
+
+app.put('/api/inventories/items/:id', function (req, res) {
+    const inventory_item = {
+        name: req.body.name,
+        quantity: req.body.quantity,
+        code: req.body.code,
+        inventoryId: req.body.inventoryId,
+        available: req.body.available
+    };
+
+    console.log("Updating item - ", req.params.id);
+
+    InventoryItem.update({_id: req.params.id}, inventory_item, function (err, raw) {
+        if (err) {
+            res.send(err);
+        }
+        res.send(raw);
+    });
 });
 
 app.post('/api/users', function (req, res) {

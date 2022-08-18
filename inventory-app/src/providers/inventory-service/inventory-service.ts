@@ -69,6 +69,21 @@ export class InventoryServiceProvider {
     });
   }
 
+  editInventoryItem(data, index) {
+    this.http.put(this.baseURL + "/api/inventories/items/" + index, data).subscribe(res => {
+      this.items = <any>res;
+      this.dataChangeSubject.next(true);
+    });
+  }
+
+  getInventoryItemByCode(code): Observable<object[]> {
+    //return this.items;
+    return this.http.get(this.baseURL + "/api/inventories/items/code/" + code).pipe( 
+      map(this.extractData),
+      catchError(this.handleError)
+    );
+  }
+
   private extractData(res: Response) {
     let body = res;
     return body || {};

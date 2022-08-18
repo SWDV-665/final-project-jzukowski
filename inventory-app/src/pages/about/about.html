@@ -8,4 +8,28 @@
 
 <ion-content padding>
 
+  <button ion-button block color="danger" (click)="scanforitem()">
+    Scan  
+  </button>
+
+  <ion-list>
+    <ion-item *ngFor="let item of inventoryItem; let i = index">
+      <h3>Name: {{item.name}}</h3>
+      <p>Quantity: {{item.quantity}}</p>
+      <p>Available: {{item.available}}</p>
+
+      <button ion-button block color="primary" (click)="setstatus(item, item._id, true)" *ngIf="item.available == false">
+        Check In
+      </button>
+    
+      <button ion-button block color="secondary" (click)="setstatus(item, item._id, false)" *ngIf="item.available == true">
+        Check Out
+      </button>
+    </ion-item>
+
+  </ion-list>
+
+  
+
+  
 </ion-content>

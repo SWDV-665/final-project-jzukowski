@@ -5,9 +5,11 @@
 </ion-header>
 
 <ion-content padding>
+  
   <h3 class="no-item" text-center *ngIf="items.length === 0">
     There are currently no Inventories created
   </h3>
+
   <ion-list>
     <ion-item-sliding *ngFor="let item of items; let i = index">
       <button ion-item (click)="inventorySelect(item._id, item)">
