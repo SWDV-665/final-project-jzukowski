@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
+import { MenuController, App} from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { InputDialogServiceProvider } from '../../providers/input-dialog-service/input-dialog-service';
 import { InventoryServiceProvider } from '../../providers/inventory-service/inventory-service';
 import { Storage } from '@ionic/storage';
 import { InventoryPage } from '../inventory/inventory';
+import { SessionServiceProvider } from '../../providers/session-service/session-service';
 
 @Component({
   selector: 'page-home',
@@ -17,10 +19,11 @@ export class HomePage {
   errorMessage: string;
   userId: string;
   
-  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public socialSharing: SocialSharing, public inputDialogService: InputDialogServiceProvider, public inventoryService: InventoryServiceProvider, private storage: Storage) {
+  constructor(public sessionSvc: SessionServiceProvider, public app: App, public menu: MenuController, public navCtrl: NavController, public toastCtrl: ToastController, public socialSharing: SocialSharing, public inputDialogService: InputDialogServiceProvider, public inventoryService: InventoryServiceProvider, private storage: Storage) {
     inventoryService.dataChanged$.subscribe((dataChanged: boolean) => {
       this.loadItems();
     });
+    menu.enable(true);
   }
 
   ionViewDidLoad() {
@@ -29,6 +32,12 @@ export class HomePage {
       this.loadItems();
     });
     
+  }
+
+  logout() {
+    this.storage.remove("userId").then((val) => {
+      this.sessionSvc.isUserAuthenticated(false);
+    });
   }
 
   loadItems() {

@@ -22,6 +22,7 @@ import { InputDialogServiceProvider } from '../providers/input-dialog-service/in
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { AvailableFilterPipe } from '../pipes/available-filter/available-filter';
+import { SessionServiceProvider } from '../providers/session-service/session-service';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { AvailableFilterPipe } from '../pipes/available-filter/available-filter'
     AuthenticateUserProvider,
     SocialSharing,
     BarcodeScanner,
-    InputDialogServiceProvider
+    InputDialogServiceProvider,
+    SessionServiceProvider
   ]
 })
 export class AppModule {}

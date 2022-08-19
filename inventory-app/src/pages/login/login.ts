@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { TabsPage } from '../tabs/tabs';
 import {AuthenticateUserProvider} from '../../providers/authenticate-user/authenticate-user';
 import { Storage } from '@ionic/storage';
+import { SessionServiceProvider } from '../../providers/session-service/session-service';
 
 /**
  * Generated class for the LoginPage page.
@@ -21,11 +21,11 @@ export class LoginPage {
   username = "";
   password = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authProvider: AuthenticateUserProvider, private storage: Storage) {
+  constructor(public sessionSnv: SessionServiceProvider, public navCtrl: NavController, public navParams: NavParams, public authProvider: AuthenticateUserProvider, private storage: Storage) {
     authProvider.dataChanged$.subscribe((dataChanged: boolean) => {
       if (authProvider.users.length > 0) {
         this.storage.set("userId", authProvider.users[0]._id).then(() => {
-          this.navCtrl.setRoot(TabsPage);
+          sessionSnv.isUserAuthenticated(true);
         });
       }
       else {
@@ -35,7 +35,9 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+    this.storage.get("userId").then((val) => {
+      if (val !== null) this.sessionSnv.isUserAuthenticated(true);
+    })
   }
 
   login() {
