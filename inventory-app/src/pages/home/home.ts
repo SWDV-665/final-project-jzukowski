@@ -47,13 +47,14 @@ export class HomePage {
     );
   }
 
-  removeItem(item, index) {
+  removeItem(item, itemId) {
     const toast = this.toastCtrl.create({
       message: `${item.name} has been deleted`,
       duration: 3000
     });
     toast.present();
 
+    this.inventoryService.removeInventory(itemId);
   }
 
   editItem(item, index) {
@@ -62,7 +63,7 @@ export class HomePage {
       duration: 3000
     });
     toast.present();
-
+    this.inputDialogService.showPrompt(item, index);
   }
 
   shareItem(item, index) {

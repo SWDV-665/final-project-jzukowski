@@ -42,20 +42,20 @@ var InventoryItem = mongoose.model('InventoryItem',{
 });
 
 
-// Get all grocery items
+// Get all invenrtory items
 app.get('/api/inventories', function (req, res) {
 
-    console.log("Listing groceries items...");
+    console.log("Listing inventory items...");
 
-    //use mongoose to get all groceries in the database
-    Inventory.find(function (err, groceries) {
+    //use mongoose to get all inventories in the database
+    Inventory.find(function (err, inventories) {
 
         // if there is an error retrieving, send the error. nothing after res.send(err) will execute
         if (err) {
             res.send(err);
         }
 
-        res.json(groceries); // return all groceries in JSON format
+        res.json(inventories); // return all inventories in JSON format
     });
 });
 
@@ -71,7 +71,7 @@ app.get('/api/inventories/:id', function (req, res) {
     });
 });
 
-// Create a grocery Item
+// Create an inventory Item
 app.post('/api/inventories', function (req, res) {
 
     console.log("Creating inventory item...");
@@ -86,7 +86,7 @@ app.post('/api/inventories', function (req, res) {
             res.send(err);
         }
 
-        // create and return all the groceries
+        // create and return all the inventories
         Inventory.find(function (err, inventory_items) {
             if (err)
                 res.send(err);
@@ -96,11 +96,11 @@ app.post('/api/inventories', function (req, res) {
 
 });
 
-// Update a grocery Item
+// Update an inventory Item
 app.put('/api/inventories/:id', function (req, res) {
     const inventory_item = {
-        item: req.body.item,
-        quantity: req.body.quantity
+        name: req.body.name,
+        userId: req.body.userId
     };
     console.log("Updating item - ", req.params.id);
     Inventory.update({_id: req.params.id}, inventory_item, function (err, raw) {
@@ -112,7 +112,7 @@ app.put('/api/inventories/:id', function (req, res) {
 });
 
 
-// Delete a grocery Item
+// Delete an inventory Item
 app.delete('/api/inventories/:id', function (req, res) {
     Inventory.remove({
         _id: req.params.id
@@ -174,7 +174,7 @@ app.post('/api/inventories/items', function (req, res) {
             res.send(err);
         }
 
-        // create and return all the groceries
+        // create and return all the inventories
         InventoryItem.find(function (err, inventory_items) {
             if (err)
                 res.send(err);
@@ -239,7 +239,7 @@ app.post('/api/addUser', function (req, res) {
             res.send(err);
         }
 
-        // create and return all the groceries
+        // create and return all the inventories
         User.find(function (err, users) {
             if (err)
                 res.send(err);
