@@ -13,7 +13,7 @@ import { Subject } from 'rxjs';
 export class AuthenticateUserProvider {
 
   users = [];
-  baseURL = "http://192.168.1.164:8080";//"http://localhost:8080";
+  baseURL = "https://jz-inventory-server.herokuapp.com";
 
   dataChanged$: Observable<boolean>;
   private dataChangeSubject: Subject<boolean>;
