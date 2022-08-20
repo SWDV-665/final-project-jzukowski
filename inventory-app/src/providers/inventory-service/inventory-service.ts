@@ -76,6 +76,13 @@ export class InventoryServiceProvider {
     });
   }
 
+  removeInventoryItem(id) {
+    this.http.delete(this.baseURL + "/api/inventories/items/" + id).subscribe(res => {
+      this.items = <any>res;
+      this.dataChangeSubject.next(true);
+    });
+  }
+
   getInventoryItemByCode(code): Observable<object[]> {
     //return this.items;
     return this.http.get(this.baseURL + "/api/inventories/items/code/" + code).pipe( 

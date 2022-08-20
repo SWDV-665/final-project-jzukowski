@@ -46,27 +46,27 @@ export class InventoryPage {
     );
   }
 
-  removeItem(item, id) {
-
+  removeItem(id) {
+    this.inventoryService.removeInventoryItem(id);
   }
   
-  editItem(index, item) {
-
+  editItem(item, id) {
+    this,this.openModal(item, id)
   }
 
   addItem() {
     this.openModal();
   }
 
-  openModal(index?, item?) {
+  openModal(item?, id?) {
     let modal = this.modalCtrl.create(ModalInventoryItemPage, {item: item}, {cssClass : 'select-modal'});
     modal.onDidDismiss(data => {
       if (data !== undefined) {
-        if (index === undefined) {
-          this.inventoryService.addInventoryItem({name: data.name, quantity: data.quantity, code: data.code, inventoryId: this.id});
+        if (id === undefined) {
+          this.inventoryService.addInventoryItem({name: data.name, quantity: data.quantity, code: data.code, inventoryId: this.id, available: data.available});
         }
         else {
-          //this.dataService.editItem(data, index);
+          this.inventoryService.editInventoryItem({name: data.name, quantity: data.quantity, code: data.code, inventoryId: this.id, available: data.available}, id)
         }
       }
     });

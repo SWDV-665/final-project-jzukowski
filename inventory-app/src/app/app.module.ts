@@ -10,6 +10,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { InventoryPage } from '../pages/inventory/inventory';
 import { ModalInventoryItemPage } from '../pages/modal-inventory-item/modal-inventory-item';
+import { ModalCreateUserPage } from '../pages/modal-create-user/modal-create-user';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -34,6 +35,7 @@ import { SessionServiceProvider } from '../providers/session-service/session-ser
     LoginPage,
     InventoryPage,
     ModalInventoryItemPage,
+    ModalCreateUserPage,
     AvailableFilterPipe
   ],
   imports: [
@@ -51,7 +53,8 @@ import { SessionServiceProvider } from '../providers/session-service/session-ser
     TabsPage,
     LoginPage,
     InventoryPage,
-    ModalInventoryItemPage
+    ModalInventoryItemPage,
+    ModalCreateUserPage
   ],
   providers: [
     StatusBar,

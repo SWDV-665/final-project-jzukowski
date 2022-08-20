@@ -203,6 +203,26 @@ app.put('/api/inventories/items/:id', function (req, res) {
     });
 });
 
+app.delete('/api/inventories/items/:id', function (req, res) {
+    InventoryItem.remove({
+        _id: req.params.id
+    }, function (err, grocery) {
+        if (err) {
+            console.error("Error deleting item ", err);
+        }
+        else {
+            InventoryItem.find(function (err, inventory_items) {
+                if (err) {
+                    res.send(err);
+                }
+                else {
+                    res.json(inventory_items);
+                }
+            });
+        }
+    });
+});
+
 app.post('/api/users', function (req, res) {
     console.log("fetching users...");
     User.find({username: req.body.username, password: req.body.password}, function (err, users) {

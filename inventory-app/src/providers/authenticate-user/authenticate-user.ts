@@ -30,4 +30,10 @@ export class AuthenticateUserProvider {
       this.dataChangeSubject.next(true);
     });
   }
+
+  createUser(data){
+    return this.http.post(this.baseURL + "/api/addUser", data).subscribe(data => {
+      this.users = <any>data;
+    });
+  }
 }

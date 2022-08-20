@@ -36,14 +36,14 @@
           <p>{{item.quantity}}</p>
         </ion-item>
         <ion-item-options>
-          <button ion-button (click)="editItem(i, item)" color="primary" icon-start>
+          <button ion-button (click)="editItem(item, item._id)" color="primary" icon-start>
             <ion-icon name="create"></ion-icon>
             Edit
           </button>
   
-          <button ion-button (click)="removeItem(item, item._id)" color="secondary" icon-start>
+          <button ion-button (click)="removeItem(item._id)" color="secondary" icon-start>
             <ion-icon name="trash"></ion-icon>
-            Done
+            Remove
           </button>
         </ion-item-options>
         
@@ -59,14 +59,14 @@
           <p>{{item.quantity}}</p>
         </ion-item>
         <ion-item-options>
-          <button ion-button (click)="editItem(i, item)" color="primary" icon-start>
+          <button ion-button (click)="editItem(item, item._id)" color="primary" icon-start>
             <ion-icon name="create"></ion-icon>
             Edit
           </button>
   
-          <button ion-button (click)="removeItem(item, item._id)" color="secondary" icon-start>
+          <button ion-button (click)="removeItem(item._id)" color="secondary" icon-start>
             <ion-icon name="trash"></ion-icon>
-            Done
+            Remove
           </button>
         </ion-item-options>
         

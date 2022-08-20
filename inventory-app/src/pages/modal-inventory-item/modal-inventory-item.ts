@@ -20,10 +20,22 @@ export class ModalInventoryItemPage {
   name;
   quantity;
   code;
+  isAvailable = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl:ViewController, private barcodeScanner: BarcodeScanner) {
     this.item = navParams.get("item");
-    this.title = (this.item === undefined) ? "Add Inventory Item" : "Edit Inventory Item";
+
+    if (this.item === undefined) {
+      this.title = "Add Inventory Item";
+    }
+    else {
+      this.title =  "Edit Inventory Item";
+      this.name = this.item.name;
+      this.quantity = this.item.quantity;
+      this.code = this.item.code;
+      this.isAvailable = this.item.available;
+    }
+    
   }
 
   counter(i: number) {
@@ -39,7 +51,7 @@ export class ModalInventoryItemPage {
   }
 
   saveModal() {
-    this.viewCtrl.dismiss({name: this.name, quantity: this.quantity, code: this.code}); 
+    this.viewCtrl.dismiss({name: this.name, quantity: this.quantity, code: this.code, available: this.isAvailable}); 
   }
 
   captureQRCode() {
