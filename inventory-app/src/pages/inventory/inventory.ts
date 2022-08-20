@@ -51,7 +51,7 @@ export class InventoryPage {
   }
   
   editItem(item, id) {
-    this,this.openModal(item, id)
+    this.openModal(item, id)
   }
 
   addItem() {
